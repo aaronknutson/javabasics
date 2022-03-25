@@ -1,0 +1,456 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern JavaScript Basics</title>
+</head>
+<body style="font-family: Verdana, Geneva, Tahoma, sans-serif; width: 1200px; margin: auto;">
+    <div class="wrapper">
+        <h1 style="text-align: center; text-decoration: underline;">Output:</h1>
+        <div style="border: 1px solid black;">
+            <div style="padding: 20px;" id="output"></div>
+        </div>
+        <hr/>
+        <div>
+            <h1 style="text-align: center; text-decoration: underline;">Notes:</h1>
+            <details>
+                <summary style="display: flex; flex-direction: column; align-items: center;">
+                    <h2 style="text-decoration: underline; margin: 5px 0px;">Variables: </h2>
+                    <h6 style="margin: 5px 0px;">(Click to expand)</h6>
+                </summary>
+                <h3 style="text-decoration: underline; font-style: italic;">var</h3>
+                <p>Hoisted</p>
+                <p>Globally available</p>
+                <h3 style="text-decoration: underline; font-style: italic;">const</h3>
+                <p>Nonhoisted</p>
+                <p>Local variable (only available to be called within the brackets it is declared).</p>
+                <p>Can not have its entire contents changed but will allow changes to parts of an object if created as an object.</p>
+                <h3 style="text-decoration: underline; font-style: italic;">let</h3>
+                <p>Nonhoisted</p>
+                <p>Local variable (only available to be called within the brackets it is declared).</p>
+                <p>Can be modified in parts or in whole.</p>
+            </details>
+            <hr/>
+            <details>
+                <summary style="display: flex; flex-direction: column; align-items: center;">
+                    <h2 style="text-decoration: underline; margin: 5px 0px;">Functions: </h2>
+                    <h6 style="margin: 5px 0px;">(Click to expand)</h6>
+                </summary>
+                <p>
+                    <h3 style="text-decoration: underline;">Standard Function:</h3>
+                    <div style="border: 1px solid black;">
+                        <pre>
+                            <code>
+                                function init(name, isTrue) {
+                                    document.getElementById('output').innerHTML = `${username.name} (${username.email})`;
+                                }
+                            </code>
+                        </pre>
+                    </div>
+                    <div style="border: 1px solid black;">
+                        <pre>
+                            <code>
+                                function nameString() {
+                                    return `${username.name} (${username.email})`;
+                                }
+                            </code>
+                        </pre>
+                    </div>
+                    <h3 style="text-decoration: underline;">Arrow Function:</h3>
+                    <div style="border: 1px solid black;">
+                        <pre>
+                            <code>
+                                const init = (name, isTrue) => {
+                                    document.getElementById('output').innerHTML = `${username.name} (${username.email})`;
+                                }
+                            </code>
+                        </pre>
+                    </div>
+                    <h3 style="text-decoration: underline;">Single Line Arrow Function:</h3>
+                    <div style="border: 1px solid black;">
+                        <pre>
+                            <code>
+                                const nameString = () => `${username.name} (${username.email})`;
+                            </code>
+                        </pre>
+                    </div>
+                    <div style="border: 1px solid black;">
+                        <pre>
+                            <code>
+                                const nameString = name =>  `${username.name} (${username.email})`;
+                            </code>
+                        </pre>
+                    </div>
+                    <h3 style="text-decoration: underline;">Function Notes:</h3>
+                    <p>Standard Function and Arrow Function above have same output.</p>
+                    <p>Single Line Arrow Function doesn't require return statement.</p>
+                    <p>If an Arrow Function only has one argument to pass in you do not need the (), () are only needed if there are multiple or no arguments to pass.</p>
+                    <p>Arrow Functions expose the this element of the element above it when placed inside of a Standard Function where Standard Functions do not, and this will also notwork in the case of an Arrow Function inside of another Arrow Function unless you specify an argumen in first Arrow Function and call it by argument name and currentTarget. (Example Below)</p>
+                    <h4 style="text-decoration: underline;">Example:(for reference only)</h4>
+                    <h5 style="text-decoration: underline;">Doesn't work:</h5>
+                    <div style="border: 1px solid black;">
+                        <pre>
+                            <code>
+                                document.getElementById('btn').addEventListener('click', function() {
+            
+                                    function getDetails() {
+                                        return `The button id is ${e.currentTarget.getAttribute('id')};
+                                    }
+                
+                                    console.log(getDetails);
+                                });
+                            </code>
+                        </pre>
+                    </div>
+                    <div style="border: 1px solid black;">
+                        <pre>
+                            <code>
+                                document.getElementById('btn').addEventListener('click', () => {
+            
+                                    const getDetails = () => {
+                                        return `The button id is ${this.currentTarget.getAttribute('id')};
+                                    }
+                
+                                    console.log(getDetails);
+                                });
+                            </code>
+                        </pre>
+                    </div>
+                    <h5 style="text-decoration: underline;">Works:</h5>
+                    <div style="border: 1px solid black;">
+                        <pre>
+                            <code>
+                                document.getElementById('btn').addEventListener('click', function() {
+            
+                                    const getDetails = () => {
+                                        return `The button id is ${e.currentTarget.getAttribute('id')};
+                                    }
+                
+                                    console.log(getDetails);
+                                });
+                            </code>
+                        </pre>
+                    </div>
+                    <div style="border: 1px solid black;">
+                        <pre>
+                            <code>
+                                document.getElementById('btn').addEventListener('click', (e) => {
+            
+                                    const getDetails = () => {
+                                        return `The button id is ${e.currentTarget.getAttribute('id')};
+                                    }
+                
+                                    console.log(getDetails);
+                                });
+                            </code>
+                        </pre>
+                    </div>
+                </p>
+            </details>
+            <hr/>
+            <details>
+                <summary style="display: flex; flex-direction: column; align-items: center;">
+                    <h2 style="text-decoration: underline; margin: 5px 0px;">Classes Using OOP: </h2>
+                    <h6 style="margin: 5px 0px;">(Click to expand)</h6>
+                </summary>
+                <h3 style="text-decoration: underline;">Old Way:</h3>
+                <div style="border: 1px solid black;">
+                    <pre>
+                        <code>
+                            // Initialize an Item class
+                            function Item(name, category) {
+                                this.name = name;
+                                this.category = category;
+                            }
+
+                            // Create a method called getDetails() for an Item
+                            Item.prototype.getDetails = function() {
+                                return `${this.name} - ${this.category}`;
+                            }
+
+                            // Initialize a PurchasedItem class, inherits the Item class
+                            function PurchasedItem(name, category, price) {
+                                Item.call(this, name, category);
+                                this.price = price;
+                            }
+
+                            // Sets the inherited methods and properties of the base class
+                            PurchasedItem.prototype = Object.create(Item.prototype);
+                            PurchasedItem.prototype.constructor = PurchasedItem;
+
+                            // Creates a new method just for the extended PurchasedItem class
+                            PurchasedItem.prototype.getDetailsWithPrice = function() {
+                                return `${this.name} - ${this.category} - $${this.price}`;
+                            }
+
+                            var item = new Item('Coffee', 'Food');
+                            item.category = 'Drinks';
+
+                            var purchasedItem = new PurchasedItem('Sugar', 'Food', '2.49');
+                        </code>
+                    </pre>
+                </div>
+                <h3 style="text-decoration: underline;">New Way:</h3>
+                <div style="border: 1px solid black;">
+                    <pre>
+                        <code>
+                            class Item {
+                                constructor(name, category) {
+                                    this.name = name;
+                                    this.category = category;
+                                }
+                            
+                                static maxItems = 10;
+                            
+                                static getHelperText() {
+                                    return 'Add some items to your grocery list';
+                                }
+                            
+                                getDetails() {
+                                    return `${this.name} - ${this.category}`;
+                                }
+                            }
+                            
+                            class PurchasedItem extends Item {
+                                constructor(name, category, price) {
+                                    super(name, category);
+                                    this.price = price;
+                                }
+                            
+                                getDetailsWithPrice() {
+                                    return `${this.name} - ${this.category} - $${this.price}`;
+                                }
+                            
+                                static getNumberOfItems() {
+                                    return `3 / ${super.maxItems}`;
+                                }
+                            }
+                            
+                            let item = new Item('Coffee', 'Food');
+                            item.category = 'Drinks';
+                            
+                            let purchasedItem = new PurchasedItem('Sugar', 'Food', '2.49');
+                        </code>
+                    </pre>
+                </div>
+            </details>
+            <hr/>
+            <details>
+                <summary style="display: flex; flex-direction: column; align-items: center;">
+                    <h2 style="text-decoration: underline; margin: 5px 0px;">Promises: </h2>
+                    <h6 style="margin: 5px 0px;">(Click to expand)</h6>
+                </summary>
+                <h3 style="text-decoration: underline;">Example Code:</h3>
+                <div style="border: 1px solid black;">
+                    <pre>
+                        <code>
+                            let myPromise = new Promise((resolve, reject) => {
+                                // call an api
+                                let user = {
+                                    name: 'Andrew',
+                                    email: 'andrew@example.com'
+                                };
+                            
+                                setTimeout(() => {
+                                    resolve(user);
+                                    // reject('Sorry, could not retrieve the user.');
+                                }, 2000);
+                            });
+                            
+                            const getAdditionalUserData = user => {
+                                document.getElementById('output').innerHTML += `${user.name} (${user.email})`;
+                            
+                                return new Promise((resolve, reject) => {
+                                    // calling another api to get more user data
+                                    user.favoriteColor = 'Blue';
+                                    user.currentDrink = 'La Croix';
+                            
+                                    setTimeout(() => {
+                                        resolve(user);
+                                    }, 2000);
+                                });
+                            }
+                            
+                            myPromise.then(getAdditionalUserData)
+                                .then((user) => {
+                                    document.getElementById('output').innerHTML += `${user.name} (${user.email}) - ${user.currentDrink}`;
+                                })
+                                .catch((error) => {
+                                    document.getElementById('output').innerHTML += error;
+                                });
+                            
+                            document.getElementById('output').innerHTML = 'Look ma, no blocking!';
+                        </code>
+                    </pre>
+                </div>
+            </details>
+            <hr/>
+            <details>
+                <summary style="display: flex; flex-direction: column; align-items: center;">
+                    <h2 style="text-decoration: underline; margin: 5px 0px;">Async and Await: </h2>
+                    <h6 style="margin: 5px 0px;">(Click to expand)</h6>
+                </summary>
+                <h3 style="text-decoration: underline;">Example Code:</h3>
+                <div style="border: 1px solid black;">
+                    <pre>
+                        <code>
+                            <code>
+                                async function init() {
+                                    const start = Date.now();
+                                    document.getElementById('output').innerHTML = `0: init()`;
+                                
+                                    const userPromise = getUserData();
+                                    const welcomeStringPromise = getWelcomeString();
+                                
+                                    const user = await userPromise;
+                                    document.getElementById('output').innerHTML += `${Date.now() - start}: ${user.name}`;
+                                
+                                    const welcomeString = await welcomeStringPromise;
+                                    document.getElementById('output').innerHTML += `${Date.now() - start}: ${welcomeString}`;
+                                }
+                                
+                                function getUserData() {
+                                    return new Promise((resolve, reject) => {
+                                        let user = {
+                                            name: 'Andrew',
+                                            email: 'andrew@example.com'
+                                        };
+                                
+                                        setTimeout(() => {
+                                            resolve(user);
+                                        }, 2000);
+                                    });
+                                }
+                                
+                                function getWelcomeString() {
+                                    return new Promise((resolve, reject) => {
+                                        setTimeout(() => {
+                                            resolve('Welcome to my asyncronous program!');
+                                        }, 2000);
+                                    });
+                                }
+                                
+                                init();
+                            </code>
+                        </code>
+                    </pre>
+                </div>
+            </details>
+            <hr/>
+            <details>
+                <summary style="display: flex; flex-direction: column; align-items: center;">
+                    <h2 style="text-decoration: underline; margin: 5px 0px;">Maps and Sets:</h2>
+                    <h6 style="margin: 5px 0px;">(Click to expand)</h6>
+                </summary>
+                <h3 style="text-decoration: underline;">Map Notes:</h3>
+                <p>Creates list that requires key/value pairs.</p>
+                <p>Keys can be anything.</p>
+                <p>Values can be anything including objects and arrays.</p>
+                <h3 style="text-decoration: underline;">Set Notes:</h3>
+                <p>Creates list of values only.</p>
+                <p>Can't have duplicate items.</p>
+                <p>Will accept duplicates but will ignore them on callback.</p>
+                <h3 style="text-decoration: underline;">Example Code:</h3>
+                <div style="border: 1px solid black;">
+                    <pre>
+                        <code>
+                            const fruit = new Map();
+
+                            fruit.set(1, 'Banana');
+                            fruit.set(2, 'Apple');
+                            fruit.set(3, 'Strawberry');
+
+                            document.getElementById('output').innerHTML = fruit.get(2);
+
+                            fruit.delete(2);
+
+                            fruit.forEach(item => {
+                                document.getElementById('output').innerHTML += item;
+                            });
+
+                            fruit.set(4, {
+                                type: 'Orange',
+                                color: 'orange',
+                                flavor: 'orangey'
+                            });
+
+                            document.getElementById('output').innerHTML += fruit.get(4).flavor;
+
+                            const users = new Map();
+
+                            users.set({
+                                name: 'Andrew',
+                                email: 'andrew@example.com'
+                            }, function(user) {
+                                document.getElementById('output').innerHTML += `${user.name} (${user.email})`;
+                            });
+
+                            const userAshley = {
+                                name: 'Ashley',
+                                email: 'ashley@example.com'
+                            };
+
+                            users.set(userAshley, function(user) {
+                                document.getElementById('output').innerHTML += `(${user.email}) ${user.name}`;
+                            });
+
+                            users.forEach((value, key) => {
+                                value(key);
+                            });
+
+                            let userAshleyExists = users.has(userAshley);
+
+                            console.log('userAshleyExists: ', userAshleyExists);
+
+                            const fruit = new Set();
+
+                            fruit.add('Banana');
+                            fruit.add('Apple');
+                            fruit.add('Strawberry');
+                            fruit.add('Apple');
+                            fruit.add('Apple');
+
+                            fruit.forEach(value => {
+                                document.getElementById('output').innerHTML += value;
+                            });
+                        </code>
+                    </pre>
+                </div>
+            </details>
+            <hr/>
+            <details>
+                <summary style="display: flex; flex-direction: column; align-items: center;">
+                    <h2 style="text-decoration: underline; margin: 5px 0px;">Declarative Methods:</h2>
+                    <h6 style="margin: 5px 0px;">(Click to expand)</h6>
+                </summary>
+                <h3 style="text-decoration: underline;">Example Code:</h3>
+                <div style="border: 1px solid black;">
+                    <pre>
+                        <code>
+                            
+                        </code>
+                    </pre>
+                </div>
+            </details>
+            <hr/>
+            <details>
+                <summary style="display: flex; flex-direction: column; align-items: center;">
+                    <h2 style="text-decoration: underline; margin: 5px 0px;">Modules:</h2>
+                    <h6 style="margin: 5px 0px;">(Click to expand)</h6>
+                </summary>
+                <h3 style="text-decoration: underline;">Example Code:</h3>
+                <div style="border: 1px solid black;">
+                    <pre>
+                        <code>
+                            
+                        </code>
+                    </pre>
+                </div>
+            </details>
+            <hr/>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body> 
+</html>
