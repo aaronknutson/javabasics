@@ -428,7 +428,52 @@
                 <div style="border: 1px solid black;">
                     <pre>
                         <code>
-                            
+                            'use strict';
+
+                            let fruit = ['Banana', 'Strawberry', 'Orange', 'Apple', 'Grape', 'Plum'];
+
+                            // let fruitsThatContainE = [];
+                            // fruit.forEach(function(fruit) {
+                            //     if (fruit.includes('e')) {
+                            //         fruitsThatContainE.push(fruit);
+                            //     }
+                            // });
+
+                            // filter example does same as above in one line
+
+                            let fruitsThatContainE = fruit.filter(f => f.includes('e'));
+
+                            document.getElementById('output').innerHTML = fruitsThatContainE.join(', ');
+
+                            // reduce example returns single value
+
+                            let users = [
+                                {
+                                    name: 'Andrew',
+                                    email: 'andrew@example.com',
+                                    stars: 5,
+                                },
+                                {
+                                    name: 'Ashley',
+                                    email: 'ashley@example.com',
+                                    stars: 9
+                                },
+                                {
+                                    name: 'Gaston',
+                                    email: 'gaston@example.com',
+                                    stars: 1
+                                }
+                            ];
+
+                            let totalStars = users.reduce((stars, user) => stars += user.stars, 0);
+
+                            document.getElementById('output').innerHTML += 'Total Stars: ' + totalStars;
+
+                            // map example returns an array of information
+
+                            let userEmails = users.map(user => user.email);
+
+                            document.getElementById('output').innerHTML += 'Emails: ' + userEmails.join(', ');
                         </code>
                     </pre>
                 </div>
@@ -440,10 +485,65 @@
                     <h6 style="margin: 5px 0px;">(Click to expand)</h6>
                 </summary>
                 <h3 style="text-decoration: underline;">Example Code:</h3>
+                <h4 style="text-decoration: underline;">helper.js file:</h4>
                 <div style="border: 1px solid black;">
                     <pre>
                         <code>
-                            
+                            export default (arr) => {
+                                return arr.map(item => item.toUpperCase());
+                            }
+                        </code>
+                    </pre>
+                </div>
+                <h4 style="text-decoration: underline;">index.js file:</h4>
+                <div style="border: 1px solid black;">
+                    <pre>
+                        <code>
+                            import { users, currentUser } from './users.js';
+                            import helper from './helper.js';
+
+                            // document.getElementById('output').innerHTML = users[currentUser].name;
+
+                            const userEmails = users.map(user => user.email);
+                            document.getElementById('output').innerHTML = helper(userEmails).join(', ');
+                        </code>
+                    </pre>
+                </div>
+                <h4 style="text-decoration: underline;">users.js file:</h4>
+                <div style="border: 1px solid black;">
+                    <pre>
+                        <code>
+                            const users = [
+                                {
+                                    name: 'Andrew',
+                                    email: 'andrew@example.com'
+                                },
+                                {
+                                    name: 'Ashley',
+                                    email: 'ashley@example.com'
+                                },
+                                {
+                                    name: 'Gaston',
+                                    email: 'gaston@example.com'
+                                }
+                            ];
+
+                            let currentUser = 2;
+
+                            export { users, currentUser }
+                        </code>
+                    </pre>
+                </div>
+                <h4 style="text-decoration: underline;">index.html file:</h4>
+                <div style="border: 1px solid black;">
+                    <pre>
+                        <code>
+                            <!-- use following tag to prevent html code rendering -->
+                            <xmp>
+                                // must declare you are using module on script tag of index.html
+
+                                <script type="module" src="main.js"></script>
+                            </xmp>
                         </code>
                     </pre>
                 </div>
@@ -451,6 +551,6 @@
             <hr/>
         </div>
     </div>
-    <script src="main.js"></script>
+    <script type="module" src="main.js"></script>
 </body> 
 </html>
